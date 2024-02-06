@@ -1,0 +1,12 @@
+- Präsentation      Spielregeln könnte man kurz erläutern
+- Präsentation      Kontrollfluss des Programms könnte dargestellt werden
+
+- Spielfeld.h       print-Methode des Spielfelds gehört nicht zur Spiellogik
+- Konsole.h         Spielerverwaltung würde ich eher zur Logik zählen
+
+- Spielfeld.h       hardkodiertes Array ist unschön
+
+- Spielfeld.h       Fragen und Antworten als Pointer/Smartpointer würde per
+  Frage.h           Objektorientierung unterschiedliche Frage- und Antworttypen 
+                    erlauben
+- Frage.h           Eventuell Typ "Kategorie" einführen
