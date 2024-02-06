@@ -3,7 +3,7 @@
 #include <iomanip>
 #include <sstream>
 
-void datenEinlesen(const std::string& kategorie, Frage fragen[5][5], int spalte)
+void datenEinlesen(const std::string& kategorie, std::array<std::array<Frage, 5>, 5> fragen, int spalte)
 {
     std::ifstream file(kategorie + ".csv");
     if(!file.is_open())
@@ -62,14 +62,14 @@ Spielfeld::Spielfeld(const std::vector<std::string>& _kategorien) : kategorien(_
         fragen[spalte][zeile].frageGestellt = true;
     }
     
-    void Spielfeld::printLinesBetween() const
+    void Spielfeld::printLinesBetween(std::ostream& os) const
     {
-        std::cout << '|';
+        os << '|';
         for(int i = 0; i < 5; i++)
         {
-            std::cout << std::string(kategorien[i].size(), '-') << '|';
+            os << std::string(kategorien[i].size(), '-') << '|';
         }
-        std::cout << '\n';
+        os << '\n';
     }
 
     std::string printCentered(int fieldwidth, int value)
@@ -91,29 +91,31 @@ Spielfeld::Spielfeld(const std::vector<std::string>& _kategorien) : kategorien(_
     }
 
 
-    void Spielfeld::print() const
+    std::string Spielfeld::repraesentiereFeld() const
     {
+        std::ostringstream oss;
         // Überschrift
-        std::cout << '|';
+        oss << '|';
         for(int i = 0; i < 5; i++)
         {
-            std::cout << kategorien[i] << '|'; 
+            oss << kategorien[i] << '|'; 
         }
-        std::cout << '\n';
+        oss << '\n';
 
         // Abgrenzung zur ersten Zeile
-        printLinesBetween();
+        printLinesBetween(oss);
 
         for(int zeile = 0; zeile < 5; zeile++)
         {
-            std::cout << '|';
+            oss << '|';
             for(int spalte = 0; spalte < 5; spalte++)
             {
-                std::cout << (fragen[spalte][zeile].frageGestellt? printCentered(kategorien[spalte].size()) : printCentered(kategorien[spalte].size(), (zeile + 1)*100)) << '|';
+                oss << (fragen[spalte][zeile].frageGestellt? printCentered(kategorien[spalte].size()) : printCentered(kategorien[spalte].size(), fragen[spalte][zeile].wert)) << '|';
                 // Ist die Frage bereits gestellt worden, dann soll das Feld mit einem X gefüllt werden, ansonsten der Wert der Frage.
             }
-            std::cout << '\n';
-            printLinesBetween();
+            oss << '\n';
+            printLinesBetween(oss);
         }
-        std::cout << "\n\n";
+        oss << "\n\n";
+        return oss.str();
     }

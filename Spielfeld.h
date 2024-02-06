@@ -2,17 +2,19 @@
 #define SPIELFELD_H
 #include "Frage.h"
 
+#include <array>
+
 struct Spielfeld
 {
-    Frage fragen[5][5];
+    std::array<std::array<Frage, 5>, 5> fragen;
     std::vector<std::string> kategorien;
-    void printLinesBetween()const;
+    void printLinesBetween(std::ostream& os)const;
     // Konstruktor
     Spielfeld(const std::vector<std::string>& kategorien);
 
     // Methoden
     void frageStreichen(int spalte, int zeile);
-    void print() const;
+    std::string repraesentiereFeld() const;
     
 };
 

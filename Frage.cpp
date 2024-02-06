@@ -1,24 +1,28 @@
 #include "Frage.h"
 
+#include <sstream>
+
     /// @brief Hilfsfunktion zum Präsentieren der Antworten
     /// @param antworten 
-    void printAnswers(const std::vector<Antwort>& antworten)
+    void printAnswers(const std::vector<Antwort>& antworten, std::ostream& os)
     {
         int index = 1;
         for(const auto& antwort : antworten)
         {
-            std::cout << '<' << index++ << "> " << antwort.text << '\n';
+            os << '<' << index++ << "> " << antwort.text << '\n';
         }
     }
 
     Frage::Frage(int _wert, const std::string& _text, std::vector<Antwort> _antworten)
     : wert(_wert), text(_text), antworten(_antworten){}
 
-    void Frage::fragePraesentieren() const
+    std::string Frage::fragePraesentieren() const
     {
-        std::cout << text << '\n';
-        printAnswers(antworten);
-        std::cout << '\n';
+        std::ostringstream oss;
+        oss << text << '\n';
+        printAnswers(antworten, oss);
+        oss << '\n';
+        return oss.str();
     }
 
     bool Frage::auswerten(int antwort)const

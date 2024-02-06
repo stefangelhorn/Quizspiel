@@ -6,9 +6,9 @@ int main()
     std::vector<Spieler> spieler{{"Stefan", 0}};
     Konsole console{spielfeld, spieler};
 
-    spielfeld.print();
+    std::cout << spielfeld.repraesentiereFeld();
 
-    spielfeld.fragen[2][3].fragePraesentieren();
+    std::cout << spielfeld.fragen[2][3].fragePraesentieren();
 
     return 0;
 }
