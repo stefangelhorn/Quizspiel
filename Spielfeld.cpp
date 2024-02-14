@@ -119,3 +119,21 @@ Spielfeld::Spielfeld(const std::vector<std::string>& _kategorien) : kategorien(_
         oss << "\n\n";
         return oss.str();
     }
+
+    std::map<int, std::vector<int>> Spielfeld::offeneFragen() const
+    {
+        std::map<int, std::vector<int>> _offeneFragen;
+    
+        for(int i = 0; i < fragen.size(); i++)
+        {
+            _offeneFragen[i] = std::vector<int>{}; // Hier wird ein leerer Vector hinzugefügt
+            for(int j = 0; j < fragen[i].size(); j++)
+            {
+                if(!fragen[i][j].frageGestellt)
+                {
+                    _offeneFragen[i].push_back(j);
+                }
+            }
+        }
+        return _offeneFragen;
+    }

@@ -10,5 +10,6 @@ Hauptprogramm (Logik):
     Aktiven Spieler von Verwaltung wählen lassen    Verwaltung.get_naechsten_spieler() -> Spielerdaten
     Kategorie/Frage von UI bestimmen                UI.get_frage(Spielfeld, Spieler?) -> Frage
     Antwort von UI abfragen                         UI.get_antwort(Frage, Spieler?) -> Antwort
+    # Aktueller Stand (Hier weiter machen)
     Antwort auswerten                               Frage.get_punkte(Antwort) -> Punktzahl
     Punkte an Verwaltung weitergeben                Verwaltung.aktualisiere_punkte(Punktzahl, Spieler?) -> void
