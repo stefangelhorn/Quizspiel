@@ -7,9 +7,9 @@ Hauptprogramm (Logik):
 
 2. Solange Spiel läuft:                             Spielfeld.noch_fragen() -> bool
     UI anweisen aktuelles Spielfeld anzuzeigen      UI.zeige(Spielfeld) -> void
-    Aktiven Spieler von Verwaltung wählen lassen    Verwaltung.get_naechsten_spieler() -> Spielerdaten
+    Aktiven Spieler von Verwaltung wählen lassen    Verwaltung.get_naechsten_spieler() -> Spieler
     Kategorie/Frage von UI bestimmen                UI.get_frage(Spielfeld, Spieler?) -> Frage
     Antwort von UI abfragen                         UI.get_antwort(Frage, Spieler?) -> Antwort
     # Aktueller Stand (Hier weiter machen)
-    Antwort auswerten                               Frage.get_punkte(Antwort) -> Punktzahl
-    Punkte an Verwaltung weitergeben                Verwaltung.aktualisiere_punkte(Punktzahl, Spieler?) -> void
+    Antwort auswerten                               Frage.auswerten(Antwort) -> Punktzahl
+    Punkte an Verwaltung weitergeben                Verwaltung.aktualisiere_punkte(Punktzahl) -> void

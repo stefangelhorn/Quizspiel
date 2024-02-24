@@ -6,11 +6,7 @@
 
 struct Konsole : public UI
 {
-    Spielfeld& spielfeld;
-    std::vector<Spieler> spieler;
-    Konsole(Spielfeld& _spielfeld, std::vector<Spieler>& _spieler) 
-    : spielfeld(_spielfeld), spieler(_spieler){}
-    
+    Konsole(){}
     virtual SpielerDaten getSpielerdaten() override;
     virtual bool spielStarten() override;
     virtual void zeigeSpielfeld(const Spielfeld&) override;

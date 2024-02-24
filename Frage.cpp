@@ -25,7 +25,7 @@
         return oss.str();
     }
 
-    bool Frage::auswerten(int antwort)const
+    int Frage::auswerten(const Antwort& antwort)const
     {
-        return (antworten[antwort-1].richtigeAntwort);
+        return (antwort.richtigeAntwort? wert : - wert); 
     }

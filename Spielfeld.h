@@ -11,7 +11,7 @@ struct Spielfeld
     std::array<std::array<Frage, 5>, 5> fragen;
     std::vector<std::string> kategorien;
     void printLinesBetween(std::ostream& os)const;
-
+    bool nochFragenVorhanden()const;
     /// @brief die map ordnet dem Index für die Kategroie die indizes der offenen Fragen zu
     std::map<int, std::vector<int>> offeneFragen() const;
     

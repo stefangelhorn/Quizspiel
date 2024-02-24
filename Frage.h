@@ -10,13 +10,12 @@ struct Frage
     std::string text;
     std::vector<Antwort> antworten;
     bool frageGestellt = false;
-
+    int auswerten(const Antwort& antwort)const;
     // Konstruktor
     Frage(int _wert, const std::string& _text, std::vector<Antwort> _antworten);
     Frage(){}
     // Methoden
     std::string fragePraesentieren() const;
-    bool auswerten(int antwort)const;
 };
 
 #endif /* FRAGE_H */

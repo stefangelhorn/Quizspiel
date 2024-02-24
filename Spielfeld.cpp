@@ -124,10 +124,10 @@ Spielfeld::Spielfeld(const std::vector<std::string>& _kategorien) : kategorien(_
     {
         std::map<int, std::vector<int>> _offeneFragen;
     
-        for(int i = 0; i < fragen.size(); i++)
+        for(size_t i = 0; i < fragen.size(); i++)
         {
             _offeneFragen[i] = std::vector<int>{}; // Hier wird ein leerer Vector hinzugefügt
-            for(int j = 0; j < fragen[i].size(); j++)
+            for(size_t j = 0; j < fragen[i].size(); j++)
             {
                 if(!fragen[i][j].frageGestellt)
                 {
@@ -136,4 +136,17 @@ Spielfeld::Spielfeld(const std::vector<std::string>& _kategorien) : kategorien(_
             }
         }
         return _offeneFragen;
+    }
+
+    bool Spielfeld::nochFragenVorhanden()const
+    {
+        auto offen = offeneFragen();
+        for(const auto& [kategorie_idx, fragen_idx] : offen)
+        {
+            if(!fragen_idx.empty())
+            {
+                return true;
+            }
+        }
+        return false;
     }

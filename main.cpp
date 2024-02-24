@@ -1,14 +1,28 @@
 #include "Konsole.h"
+#include "Spielerverwaltung.h"
+#include "UI.h"
 
-int main()
-{
-    Spielfeld spielfeld{{"Sport", "Unterhaltung", "Geschichte", "Film", "Politik"}};    
-    std::vector<Spieler> spieler{{"Stefan", 0}};
-    Konsole console{spielfeld, spieler};
+int main() {
+  Spielfeld spielfeld{
+      {"Sport", "Unterhaltung", "Geschichte", "Film", "Politik"}};
+  Konsole console;
+  UI *ui = &console;
+  Spielerverwaltung verwaltung;
 
-    std::cout << spielfeld.repraesentiereFeld();
+  do {
+    auto spielerdaten = ui->getSpielerdaten();
+    verwaltung.spielerAnlegen(spielerdaten);
+  } while (!ui->spielStarten());
 
-    std::cout << spielfeld.fragen[2][3].fragePraesentieren();
+  while (spielfeld.nochFragenVorhanden()) 
+  {
+        ui->zeigeSpielfeld(spielfeld);
+        auto aktiverSpieler = verwaltung.get_naechsten_spieler();
+        auto frage = ui->getFrage(spielfeld);
+        auto antwort = ui->getAntwort(frage, aktiverSpieler);
+        auto punkt_aenderung = frage.auswerten(antwort);
+        verwaltung.aktualisiere_punkte(punkt_aenderung);
+  }
 
-    return 0;
+  return 0;
 }

@@ -17,6 +17,7 @@ bool Konsole::spielStarten()
     std::cout << "Spiel starten? (j/n): ";
     char input;
     std::cin >> input;
+    std::cin.ignore();
     return (input == 'j' ? true : false);
 }
 
@@ -47,6 +48,8 @@ int safeIntInput(int lower, int upper)
             intInput = std::stoi(input);
         }
     } while (!korrekt || intInput < lower || intInput > upper);
+
+    return intInput;
 }
 
 template <typename T>
@@ -91,23 +94,3 @@ Antwort Konsole::getAntwort(const Frage & frage, const Spieler &spieler)
     return frage.antworten[gegebeneAntwort];
 }
 
-/*
-    virtual Frage Konsole::getFrage(const Spielfeld&) override;
-    virtual Antwort Konsole::getAntwort(const Frage&, const Spieler&) override;
-*/
-
-/*
-struct Konsole : public UI
-{
-    Spielfeld& spielfeld;
-    std::vector<Spieler> spieler;
-    Konsole(Spielfeld& _spielfeld, std::vector<Spieler>& _spieler)
-    : spielfeld(_spielfeld), spieler(_spieler){}
-
-    virtual SpielerDaten getSpielerdaten() override;
-    virtual bool spielStarten() override;
-    virtual void zeigeSpielfeld(const Spielfeld&) override;
-    virtual Frage getFrage(const Spielfeld&) override;
-    virtual Antwort getAntwort(const Frage&, const Spieler&) override;
-};
-//*/
