@@ -1,5 +1,6 @@
 #include "Konsole.h"
 
+#include <algorithm>
 #include <cctype>
 #include <iostream>
 #include <string>
@@ -63,34 +64,63 @@ int menu(const std::vector<T> &menupunkte)
     return safeIntInput(1, index) - 1;
 }
 
-Frage Konsole::getFrage(const Spielfeld &spielfeld)
+Frage Konsole::getFrage(Spielfeld &spielfeld, const Spieler& spieler)
 {
+    std::cout << spieler.name << " am Zug:\n";
     zeigeSpielfeld(spielfeld);
     auto Kategorien = spielfeld.offeneFragen();
     std::vector<std::string> offeneKategorien{};
+    std::vector<int> kategorieIndizes{};
     for (auto &[kategorie_idx, fragen_indices] : Kategorien)
     {
         if (!fragen_indices.empty())
         {
             offeneKategorien.push_back(spielfeld.kategorien[kategorie_idx]);
+            kategorieIndizes.push_back(kategorie_idx);
         }
     }
-    int kategoriewahl = menu(offeneKategorien);
+
+    int kategoriewahl = kategorieIndizes[menu(offeneKategorien)];
 
     std::vector<int> fragen_werte;
+    std::vector<int> fragen_indices;
     for (auto &frage_idx : Kategorien[kategoriewahl])
     {
         fragen_werte.push_back(spielfeld.fragen[kategoriewahl][frage_idx].wert);
+        fragen_indices.push_back(frage_idx);
     }
 
-    int fragewahl = menu(fragen_werte);
+    int fragewahl = fragen_indices[menu(fragen_werte)];
+    spielfeld.fragen[kategoriewahl][fragewahl].frageGestellt = true;
     return spielfeld.fragen[kategoriewahl][fragewahl];
 }
 
 Antwort Konsole::getAntwort(const Frage & frage, const Spieler &spieler)
 {
-    std::cout << "Frage: " << frage.text << '\n';
+    std::cout << spieler.name << " - Deine Frage: " << frage.text << '\n';
     int gegebeneAntwort = menu(frage.antworten);
     return frage.antworten[gegebeneAntwort];
 }
 
+void Konsole::zeigeSpielstand(const Spielerverwaltung& verwaltung)
+{
+    for(const auto& spieler : verwaltung.getSpieler())
+    {
+        std::cout << "Name: " << spieler.name << "\tPunkte: " << spieler.punkte << '\n';
+    }
+    std::cout << '\n';
+}
+
+void Konsole::siegerehrung(const Spielerverwaltung& verwaltung) const
+{
+    auto spieler = verwaltung.getSpieler();
+    std::sort(spieler.begin(), spieler.end(), [](const Spieler& a, const Spieler& b){return a.punkte > b.punkte;});
+
+    std::cout << spieler[0].name << " hat gewonnen!\n";
+
+    for(const auto& s : spieler)
+    {
+        std::cout << s.name << "\t" << s.punkte << " Punkte\n";   
+    }
+    std::cout << '\n';
+}

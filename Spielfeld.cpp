@@ -3,7 +3,7 @@
 #include <iomanip>
 #include <sstream>
 
-void datenEinlesen(const std::string& kategorie, std::array<std::array<Frage, 5>, 5> fragen, int spalte)
+void datenEinlesen(const std::string& kategorie, std::array<std::array<Frage, 5>, 5>& fragen, int spalte)
 {
     std::ifstream file(kategorie + ".csv");
     if(!file.is_open())
@@ -139,7 +139,7 @@ Spielfeld::Spielfeld(const std::vector<std::string>& _kategorien) : kategorien(_
     }
 
     bool Spielfeld::nochFragenVorhanden()const
-    {
+    {  
         auto offen = offeneFragen();
         for(const auto& [kategorie_idx, fragen_idx] : offen)
         {

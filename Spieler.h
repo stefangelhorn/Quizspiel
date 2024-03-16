@@ -9,4 +9,5 @@ struct Spieler
     Spieler(const std::string& _name, int _punkte);
 };
 
+
 #endif /* SPIELER_H */
