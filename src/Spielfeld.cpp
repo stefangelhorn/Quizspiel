@@ -5,7 +5,7 @@
 
 void datenEinlesen(const std::string& kategorie, std::array<std::array<Frage, 5>, 5>& fragen, int spalte)
 {
-    std::ifstream file(kategorie + ".csv");
+    std::ifstream file(".//assets/" + kategorie + ".csv");
     if(!file.is_open())
     {
         std::cout << "Oeffnen der Datei " << kategorie << ".csv fehlgeschlagen!\n";
